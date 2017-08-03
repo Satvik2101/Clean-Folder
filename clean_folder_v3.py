@@ -52,12 +52,14 @@ for file in files:
             pass
             shutil.move(os.path.join(cur_dir,file),'error_files')
         files.remove(file)
+        extensions.remove(extension)
     else:
-        continue
-
+        pass
+print (extensions)
 for file in files:
-    
+    extension = os.path.splitext(file)[1]
     if extensions.count(str(extension))>1: #checks to see how many times files of that extension occurs in list 'extensions'
+        print ("hello")
         print (extensions.count(str(extension))) #if more than 1, creates a folder for that extension 
 
         make_folder(extension)
