@@ -10,13 +10,30 @@ def make_folder(name): #Checks to see if a folder exists, makes it if it doesn't
     else:
         os.makedirs('.\\'+name)
 
-if os.path.exists(os.path.join(cur_dir,'clean_folder.txt'))==False: #creates clean_folder.txt if it doesn't exist
+def notepad(name):
+    if os.path.exists(os.path.join(cur_dir,name)) == False:
+        var_create= open(name,'w')
+    var= open(name,'r+')
+    var_data=var.read()
+    var.seek(0)
+    return var_data,var
+
+txt_data,txt_file= notepad('clean_folder.txt')
+skip = notepad('skip.txt')[0]
+
+
+
+'''
+os.path.exists(os.path.join(cur_dir,'clean_folder.txt'))==False: #creates clean_folder.txt if it doesn't exist
 
     txt_file_create=open('clean_folder.txt','w')
 txt_file= open('clean_folder.txt','r+')
 
 txt_data= txt_file.read() 
 txt_file.seek(0)
+'''
+
+
 
 make_folder('error_files')
 if os.path.exists("others"): #takes all files in 'others' folders and copies them to current directory
@@ -38,7 +55,7 @@ if os.path.exists("others"): #takes all files in 'others' folders and copies the
         os.rmdir('others')
 
 
-files= [x for x in os.listdir() if os.path.isdir(x)== False and x != 'clean_folder_v3.py' and x!='clean_folder.txt'] #list of files(excluding folders) in current directory, excluding this program and its text file
+files= [x for x in os.listdir() if os.path.isdir(x)== False and x != 'clean_folder_v3.py' and x!='clean_folder.txt' and x not in skip and x!= "skip.txt"] #list of files(excluding folders) in current directory, excluding this program and its text file
 extensions =[os.path.splitext(x)[1] for x in files] #list of extensions of files
 print (extensions)
 folders_created=[] #list of folders that will be created
@@ -59,7 +76,7 @@ print (extensions)
 for file in files:
     extension = os.path.splitext(file)[1]
     if extensions.count(str(extension))>1: #checks to see how many times files of that extension occurs in list 'extensions'
-        print ("hello")
+        
         print (extensions.count(str(extension))) #if more than 1, creates a folder for that extension 
 
         make_folder(extension)
@@ -90,6 +107,8 @@ if len(os.listdir('error_files'))== 0 :
 else:
     print ("The following files could not be moved due to an unknown error. Please move them manually from folder \'error_files\'")
     print (os.listdir('error_files'))
+
+print (files)
 
 os.system('pause')
 
