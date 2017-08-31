@@ -41,28 +41,33 @@ if os.path.exists("others"): #takes all files in 'others' folders and copies the
     while len(os.listdir('others')) != 0:
         for file in files_others:
             if os.path.isdir(file)==False:
-                print (file)
+                
                 try:
+
                     shutil.move(os.path.join(cur_dir,'others',file),os.path.join(cur_dir,file))
+                    print ('File',file' moved from others to ',cur_dir)
                 except OSError:
                     pass
                     shutil.move(os.path.join('others',file),'error_files')
+
             else:
                 unpack(file)
 
-    
+        
     if len(os.listdir('others'))==0:
         os.rmdir('others')
 
-
-files= [x for x in os.listdir() if os.path.isdir(x)== False and x != 'clean_folder_v3.py' and x!='clean_folder.txt' and x not in skip and x!= "skip.txt"] #list of files(excluding folders) in current directory, excluding this program and its text file
+print ("test dialogue")
+files= [x for x in os.listdir() if os.path.isdir(x)== False and x != 'clean_folder_v4.py' and x!='clean_folder.txt' and x not in skip and x!= "skip.txt"] #list of files(excluding folders) in current directory, excluding this program and its text file
 extensions =[os.path.splitext(x)[1] for x in files] #list of extensions of files
 print (extensions)
 folders_created=[] #list of folders that will be created
 for file in files:
     extension = os.path.splitext(file)[1] #takes extension of file using splitext
-    print (extension)
+    print ('Extensions of file is : ',extension)
+    
     if os.path.exists(extension): #sees if that particular file already has a dedicated folder from a previous run of clean_folder
+        print ("File already has folder")
         try:
             shutil.move(os.path.join(cur_dir,file),extension) #if yes, it moves it to that folder
         except OSError:
@@ -71,19 +76,21 @@ for file in files:
         files.remove(file)
         extensions.remove(extension)
     else:
+        print ("Folder will have to be created")
         pass
-print (extensions)
+
 for file in files:
     extension = os.path.splitext(file)[1]
     if extensions.count(str(extension))>1: #checks to see how many times files of that extension occurs in list 'extensions'
         
-        print (extensions.count(str(extension))) #if more than 1, creates a folder for that extension 
-
+         #if more than 1, creates a folder for that extension 
+        print ("File type exists more than once. Creating new folder..")
         make_folder(extension)
         
         folders_created.append(extension) #appends to list 'folders_created'
         try:
             shutil.move(os.path.join(cur_dir,file),extension) #moves file to folder of that extension
+            print ('File',file,'moved to folder' ,extension)
         except OSError:
             pass
             shutil.move(os.path.join(cur_dir,file),'error_files')
@@ -91,6 +98,7 @@ for file in files:
         make_folder("others") # if only 1 file of an extension exists, it is put in others folder
         folders_created.append("others")
         try:
+            print ('File',file,'moved to others')
             shutil.move(os.path.join(cur_dir,file),"others")
         except OSError:
             pass
