@@ -7,3 +7,4 @@ To revert the changes , use 'unpack.py'
 NOTE: -- If you don't have permission to move a particular file or 2 files with same name, one will probably get deleted.(fixed in V3.)
 In V3, any file in which an error occurs is moved to error_files folder. You will have to move them manually.
 V2 fixes some bugs.
+In V4, a new feature is added. Any documents mentioned in skip.txt will be ignored. You can create this file yourself. Clean_folder will create it on its first run anyways. Be sure to type the full name of the document including the extension. 
