@@ -132,6 +132,8 @@ Same thing is done again. If a file now placed has a folder already dedicated to
 
 All the while , it writes the name of the folders created by it in clean_folder.txt . This is so that they can be unpacked
 using unpack.py, without harming any other folders.
+
+Any files in skip.txt will not be moved.
 '''
 
 
